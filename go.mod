@@ -1,9 +1,9 @@
-module github.com/fair-n-square-co/transactor
+module github.com/fair-n-square-co/transactions
 
 go 1.21.1
 
 require (
-	github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/transaction_manager/v1alpha1 v0.2.0
+	github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/transactions/v1alpha1 v0.1.0
 	google.golang.org/grpc v1.62.1
 )
 

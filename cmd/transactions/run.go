@@ -4,8 +4,8 @@ import (
 	"log"
 	"net"
 
-	v1alpha1 "github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/transaction_manager/v1alpha1"
-	"github.com/fair-n-square-co/transactor/pkg/transactor"
+	v1alpha1 "github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/transactions/v1alpha1"
+	"github.com/fair-n-square-co/transactions/pkg/transactions"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
@@ -29,8 +29,8 @@ func run() {
 	reflection.Register(server)
 
 	// Register API v1
-	service := transactor.NewTransactionsServer()
-	v1alpha1.RegisterHelloServiceServer(server, service)
+	service := transactions.NewGroupsServer()
+	v1alpha1.RegisterGroupServiceServer(server, service)
 
 	log.Printf("listening on port %s", port)
 	if err = server.Serve(lis); err != nil {

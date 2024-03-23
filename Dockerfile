@@ -3,7 +3,7 @@ WORKDIR /app
 COPY . .
 ENV GOOS linux
 ENV CGO_ENABLED 0
-RUN go build -v -o app ./cmd/transactor
+RUN go build -v -o app ./cmd/transactions
 
 # Copy the binary to distroless image
 FROM gcr.io/distroless/base as prod
