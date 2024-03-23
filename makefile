@@ -1,7 +1,7 @@
 .PHONY: build
 build:
 	@echo "Building..."
-	go build -o bin/main ./cmd/transactor
+	go build -o bin/main ./cmd/transactions
 	@echo "Done."
 
 .PHONY: run
@@ -12,5 +12,5 @@ run: build
 
 build/docker:
 	@echo "Building docker image..."
-	docker build -t fairnsquare/transactor --target=prod .
+	docker build -t fairnsquare/transactions --target=prod .
 	@echo "Done."
