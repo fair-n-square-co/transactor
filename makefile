@@ -10,6 +10,19 @@ run: build
 	./bin/main
 	@echo "Done."
 
+
+.PHONY: run/db
+run/db:
+	@echo "Starting database..."
+	docker-compose up -d db
+	@echo "Done."
+
+.PHONY: migrate/db
+migrate/db: run/db
+	@echo "Migrating database..."
+	atlas migrate up --env dev
+	@echo "Done."
+
 build/docker:
 	@echo "Building docker image..."
 	docker build -t fairnsquare/transactions --target=prod .
