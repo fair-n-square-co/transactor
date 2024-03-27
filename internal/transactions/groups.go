@@ -19,12 +19,10 @@ func (g *groupsServer) CreateGroup(ctx context.Context, req *pb.CreateGroupReque
 	3. return success
 	4. Failure scenarios
 	*/
-
 	return nil, status.Errorf(codes.Unimplemented, "method CreateGroup not implemented")
 }
 
 func (g *groupsServer) ListGroups(ctx context.Context, request *pb.ListGroupsRequest) (*pb.ListGroupsResponse, error) {
-
 	return nil, status.Errorf(codes.Unimplemented, "method ListGroups not implemented")
 }
 
