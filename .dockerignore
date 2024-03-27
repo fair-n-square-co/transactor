@@ -1,0 +1,13 @@
+# flyctl launch added from .gitignore
+**/.idea
+**/.idea/**/*
+
+**/tmp
+**/bin
+
+# Ignore generated credentials from google-github-actions/auth
+**/gha-creds-*.json
+**/.DS_Store
+
+# Fly.io
+fly.toml
