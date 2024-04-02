@@ -1,9 +1,13 @@
 package models
 
-var models = []any{
-	// Add all database models here
+var models = []interface{}{
+	// &datatypes.TransactionType{},
+	&User{},
+	&Transaction{},
+	&Group{},
+	&TransactionUser{},
 }
 
-func GetAllModels() []any {
+func GetAllModels() []interface{} {
 	return models
 }
