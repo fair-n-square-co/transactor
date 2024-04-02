@@ -23,7 +23,18 @@ func (g *groupsServer) CreateGroup(ctx context.Context, req *pb.CreateGroupReque
 }
 
 func (g *groupsServer) ListGroups(ctx context.Context, request *pb.ListGroupsRequest) (*pb.ListGroupsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListGroups not implemented")
+	return &pb.ListGroupsResponse{
+		Groups: []*pb.Group{
+			{
+				Id:   "1",
+				Name: "Group 1",
+			},
+			{
+				Id:   "2",
+				Name: "Group 2",
+			},
+		},
+	}, nil
 }
 
 func NewGroupsServer() pb.GroupServiceServer {

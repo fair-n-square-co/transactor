@@ -17,10 +17,23 @@ run/db:
 	docker-compose up -d db
 	@echo "Done."
 
+.PHONY: migrate/gen
+migrate/gen:
+	@echo "\nReplace <migration_name> in the command below \nwith an appropriate migration name \nand generate migration files\n"
+	@echo "=============================================="
+	@echo "atlas migrate diff <migration_name> --env dev"
+	@echo "=============================================="
+
 .PHONY: migrate/db
 migrate/db: run/db
 	@echo "Migrating database..."
-	atlas migrate up --env dev
+	atlas migrate apply --env dev
+	@echo "Done."
+
+.PHONY: migrate/rehash
+migrate/rehash: run/db
+	@echo "Rehashing database..."
+	atlas migrate hash --env dev
 	@echo "Done."
 
 build/docker:
