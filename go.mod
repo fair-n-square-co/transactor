@@ -8,7 +8,7 @@ require (
 	github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/transactions/v1alpha1 v0.1.0
 	github.com/google/uuid v1.6.0
 	google.golang.org/grpc v1.62.1
-	gorm.io/gorm v1.25.7
+	gorm.io/gorm v1.25.9
 )
 
 require (
