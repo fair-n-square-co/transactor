@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net"
+	"os"
 
 	v1alpha1 "github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/transactions/v1alpha1"
 	"github.com/fair-n-square-co/transactions/internal/transactions"
@@ -10,11 +11,15 @@ import (
 	"google.golang.org/grpc/reflection"
 )
 
-const (
-	port = ":8080"
-)
-
 func run() {
+	// get PORT from env variables
+	// if not set, use default port
+	port := ":8080"
+	envPort := os.Getenv("PORT")
+	if envPort != "" {
+		port = ":" + envPort
+	}
+
 	lis, err := net.Listen("tcp", port)
 	if err != nil {
 		log.Fatal("unable to listen on port ", port)
