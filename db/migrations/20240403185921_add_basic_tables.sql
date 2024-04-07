@@ -1,3 +1,7 @@
+-- Create enum type "transaction_type"
+CREATE TYPE "transaction_type" AS ENUM ('payment', 'settlement');
+-- Create enum type "transaction_user_type"
+CREATE TYPE "transaction_user_type" AS ENUM ('payer', 'payee');
 -- Create "transaction_user" table
 CREATE TABLE "transaction_user" (
   "id" uuid NOT NULL DEFAULT gen_random_uuid(),
