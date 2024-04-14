@@ -14,3 +14,5 @@ var config = &gorm.Config{
 func GetGormConfig() *gorm.Config {
 	return config
 }
+
+// Setup DB to use TransactionUser table as join table.
