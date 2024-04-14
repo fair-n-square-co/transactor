@@ -6,7 +6,7 @@ require (
 	ariga.io/atlas-go-sdk v0.5.2
 	ariga.io/atlas-provider-gorm v0.3.2
 	github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/transactions/v1alpha1 v0.1.0
-	google.golang.org/grpc v1.62.1
+	google.golang.org/grpc v1.63.2
 )
 
 require (
@@ -28,7 +28,6 @@ require (
 )
 
 require (
-	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/google/uuid v1.6.0
 	golang.org/x/net v0.22.0 // indirect
 	golang.org/x/sys v0.18.0 // indirect
