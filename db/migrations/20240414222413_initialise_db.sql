@@ -40,6 +40,7 @@ CREATE TABLE "user" (
   "updated_at" timestamptz NULL,
   "deleted_at" timestamptz NULL,
   "email" text NOT NULL,
+  "username" text NOT NULL,
   "first_name" text NOT NULL,
   "last_name" text NULL,
   "phone" character varying(100) NOT NULL,
@@ -53,6 +54,8 @@ CREATE INDEX "idx_user_deleted_at" ON "user" ("deleted_at");
 CREATE UNIQUE INDEX "uni_user_email" ON "user" ("email");
 -- Create index "uni_user_phone" to table: "user"
 CREATE UNIQUE INDEX "uni_user_phone" ON "user" ("phone");
+-- Create index "uni_user_username" to table: "user"
+CREATE UNIQUE INDEX "uni_user_username" ON "user" ("username");
 -- Create "group" table
 CREATE TABLE "group" (
   "id" uuid NOT NULL DEFAULT gen_random_uuid(),

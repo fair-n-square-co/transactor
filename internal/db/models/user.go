@@ -9,6 +9,7 @@ type User struct {
 	base.DateTime
 	base.SoftDeleteModel
 	Email     string `gorm:"unique;not null"`
+	Username  string `gorm:"unique;not null"`
 	FirstName string `gorm:"not null"`
 	LastName  string
 	Phone     string  `gorm:"unique;not null;type:varchar(100)"`
