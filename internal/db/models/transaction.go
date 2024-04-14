@@ -3,7 +3,6 @@ package models
 import (
 	"github.com/fair-n-square-co/transactions/internal/db/datatypes"
 	"github.com/fair-n-square-co/transactions/internal/db/models/base"
-	"google.golang.org/genproto/googleapis/type/money"
 )
 
 // Transaction represents a transaction in the system
@@ -15,7 +14,7 @@ type Transaction struct {
 	base.PrimaryKey
 	base.DateTime
 	base.SoftDeleteModel
-	Amount          money.Money               `gorm:"not null;embedded;embeddedPrefix:amount_"`
+	Amount          datatypes.MoneyType       `gorm:"not null;embedded;embeddedPrefix:amount_"`
 	Description     string                    `gorm:"not null"`
 	Type            datatypes.TransactionType `gorm:"not null;default:payment;type:transaction_type"`
 	LastUpdatedUser User                      `gorm:"foreignKey:ID"`

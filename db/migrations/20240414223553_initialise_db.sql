@@ -24,9 +24,9 @@ CREATE TABLE "transaction" (
   "created_at" timestamptz NULL,
   "updated_at" timestamptz NULL,
   "deleted_at" timestamptz NULL,
-  "amount_currency_code" text NULL,
-  "amount_units" bigint NULL,
-  "amount_nanos" integer NULL,
+  "amount_currency_code" text NOT NULL DEFAULT 'AUD',
+  "amount_units" bigint NOT NULL,
+  "amount_nanos" integer NOT NULL,
   "description" text NOT NULL,
   "type" "transaction_type" NOT NULL DEFAULT 'payment',
   PRIMARY KEY ("id")
@@ -43,7 +43,7 @@ CREATE TABLE "user" (
   "username" text NOT NULL,
   "first_name" text NOT NULL,
   "last_name" text NULL,
-  "phone" character varying(100) NOT NULL,
+  "phone" character varying(100) NULL,
   PRIMARY KEY ("id"),
   CONSTRAINT "fk_transaction_creator" FOREIGN KEY ("id") REFERENCES "transaction" ("id") ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT "fk_transaction_last_updated_user" FOREIGN KEY ("id") REFERENCES "transaction" ("id") ON UPDATE NO ACTION ON DELETE NO ACTION

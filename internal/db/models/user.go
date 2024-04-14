@@ -12,6 +12,6 @@ type User struct {
 	Username  string `gorm:"unique;not null"`
 	FirstName string `gorm:"not null"`
 	LastName  string
-	Phone     string  `gorm:"unique;not null;type:varchar(100)"`
+	Phone     string  `gorm:"unique;type:varchar(100)"`
 	Groups    []Group `gorm:"many2many:user_groups;"`
 }
