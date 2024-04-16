@@ -1,9 +1,10 @@
 module github.com/fair-n-square-co/transactions
 
 go 1.21.1
+toolchain go1.22.2
 
 require (
-	ariga.io/atlas-go-sdk v0.5.2
+	ariga.io/atlas-go-sdk v0.5.3
 	ariga.io/atlas-provider-gorm v0.3.2
 	github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/transactions/v1alpha1 v0.1.0
 	google.golang.org/grpc v1.63.2
