@@ -2,41 +2,49 @@ package transactions
 
 import (
 	"context"
+	"fmt"
 
 	pb "github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/transactions/v1alpha1"
+	"github.com/fair-n-square-co/transactions/internal/controller"
+	"github.com/fair-n-square-co/transactions/internal/db"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
 
-type groupsServer struct {
+type GroupsServer struct {
 	pb.UnimplementedGroupServiceServer
+	controller controller.Controller
 }
 
-func (g *groupsServer) CreateGroup(ctx context.Context, req *pb.CreateGroupRequest) (*pb.CreateGroupResponse, error) {
-	/* TODO
-	1. validate data
-	2. create group in db
-	3. return success
-	4. Failure scenarios
-	*/
-	return nil, status.Errorf(codes.Unimplemented, "method CreateGroup not implemented")
+func (g *GroupsServer) CreateGroup(ctx context.Context, req *pb.CreateGroupRequest) (*pb.CreateGroupResponse, error) {
+	if req.Name == "" {
+		return nil, status.Error(codes.InvalidArgument, "name cannot be empty")
+	}
+	res, err := g.controller.CreateGroup(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+	return res, nil
 }
 
-func (g *groupsServer) ListGroups(ctx context.Context, request *pb.ListGroupsRequest) (*pb.ListGroupsResponse, error) {
-	return &pb.ListGroupsResponse{
-		Groups: []*pb.Group{
-			{
-				Id:   "1",
-				Name: "Group 1",
-			},
-			{
-				Id:   "2",
-				Name: "Group 2",
-			},
-		},
+func (g *GroupsServer) ListGroups(ctx context.Context, request *pb.ListGroupsRequest) (*pb.ListGroupsResponse, error) {
+	res, err := g.controller.ListGroups(ctx, request)
+	if err != nil {
+		return nil, err
+	}
+	return res, nil
+}
+
+func NewGroupsServer() (pb.GroupServiceServer, error) {
+	dbClient, err := db.NewDB()
+	if err != nil {
+		return nil, fmt.Errorf("failed to create db client: %v", err)
+	}
+	controller, err := controller.NewController(dbClient)
+	if err != nil {
+		return nil, fmt.Errorf("failed to create controller: %v", err)
+	}
+	return &GroupsServer{
+		controller: controller,
 	}, nil
-}
-
-func NewGroupsServer() pb.GroupServiceServer {
-	return &groupsServer{}
 }
