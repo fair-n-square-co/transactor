@@ -34,7 +34,10 @@ func run() {
 	reflection.Register(server)
 
 	// Register API v1
-	service := transactions.NewGroupsServer()
+	service, err := transactions.NewGroupsServer()
+	if err != nil {
+		log.Fatalf("Failed at: %v", err)
+	}
 	v1alpha1.RegisterGroupServiceServer(server, service)
 
 	log.Printf("listening on port %s", port)
