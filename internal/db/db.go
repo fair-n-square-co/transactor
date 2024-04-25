@@ -8,6 +8,8 @@ import (
 	"gorm.io/gorm"
 )
 
+//go:generate mockgen -source=db.go -destination=mocks/mock_db.go -package=dbmocks
+
 type Client interface {
 	Group
 }

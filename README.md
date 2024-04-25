@@ -1,6 +1,6 @@
 [![Go](https://github.com/fair-n-square-co/transactions/actions/workflows/go.yml/badge.svg)](https://github.com/fair-n-square-co/transactions/actions/workflows/go.yml)
 [![CodeQL](https://github.com/fair-n-square-co/transactions/actions/workflows/codeql.yml/badge.svg)](https://github.com/fair-n-square-co/transactions/actions/workflows/codeql.yml)
-
+[![codecov](https://codecov.io/gh/fair-n-square-co/transactions/graph/badge.svg?token=5KF2DFTYUR)](https://codecov.io/gh/fair-n-square-co/transactions)
 
 ## Database
 
@@ -48,3 +48,28 @@ atlas migrate diff <migration name> --env dev
 ```sh
 atlas migrate up --env dev
 ```
+
+
+## Tests
+
+### Gomock
+
+We use gomock to generate mock interfaces for testing. To generate a mock interface for a given interface, run the following command:
+```sh
+make gen/mock
+```
+
+### Installation
+
+Install gomock
+```sh
+go install go.uber.org/mock/mockgen@latest
+```
+
+### Usage
+
+Add your generate mockgen command at the top of your go file like:
+```go
+//go:generate mockgen -source=<file name> -destination=mocks/<file name> -package=mocks
+```
+
