@@ -7,6 +7,8 @@ import (
 	"github.com/fair-n-square-co/transactions/internal/db"
 )
 
+//go:generate mockgen -source=group.go -destination=mocks/mock_group.go -package=controllermocks
+
 type GroupController interface {
 	CreateGroup(ctx context.Context, req *pb.CreateGroupRequest) (*pb.CreateGroupResponse, error)
 	ListGroups(ctx context.Context, req *pb.ListGroupsRequest) (*pb.ListGroupsResponse, error)

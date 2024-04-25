@@ -6,7 +6,7 @@ import (
 	"os"
 
 	v1alpha1 "github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/transactions/v1alpha1"
-	"github.com/fair-n-square-co/transactions/internal/transactions"
+	"github.com/fair-n-square-co/transactions/internal/cmd/transactions"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )

@@ -10,6 +10,17 @@ run: build
 	./bin/main
 	@echo "Done."
 
+.PHONY: test
+test:
+	@echo "Running tests..."
+	go test -race -covermode=atomic -coverprofile=cover.out -v ./...
+	@echo "Done."
+
+.PHONY: test/coverage
+test/coverage: test
+	@echo "Generating coverage report..."
+	go tool cover -html=cover.out
+	@echo "Done."
 
 .PHONY: run/db
 run/db:
@@ -46,7 +57,14 @@ migrate/rehash: run/db
 	atlas migrate hash --env dev
 	@echo "Done."
 
+.PHONY: build/docker
 build/docker:
 	@echo "Building docker image..."
 	docker build -t fairnsquare/transactions --target=prod .
+	@echo "Done."
+
+.PHONY: gen/mock
+gen/mock:
+	@echo "Generating mocks..."
+	go generate ./...
 	@echo "Done."

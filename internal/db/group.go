@@ -9,6 +9,8 @@ import (
 	"gorm.io/gorm"
 )
 
+//go:generate mockgen -source=group.go -destination=mocks/mock_group.go -package=dbmocks
+
 type Group interface {
 	// CreateGroup creates a new group in the database
 	CreateGroup(ctx context.Context, group CreateGroupOptions) (uuid.UUID, error)
