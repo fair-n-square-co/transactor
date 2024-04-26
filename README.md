@@ -1,5 +1,6 @@
 [![Go](https://github.com/fair-n-square-co/transactions/actions/workflows/go.yml/badge.svg)](https://github.com/fair-n-square-co/transactions/actions/workflows/go.yml)
 [![codecov](https://codecov.io/gh/fair-n-square-co/transactions/graph/badge.svg?token=5KF2DFTYUR)](https://codecov.io/gh/fair-n-square-co/transactions)
+[![CodeQL](https://github.com/fair-n-square-co/transactions/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/fair-n-square-co/transactions/actions/workflows/github-code-scanning/codeql)
 
 ## Database
 
