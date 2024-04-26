@@ -19,5 +19,11 @@ env "dev" {
       diff = "{{ sql . \"  \" }}"
     }
   }
+}
 
+env "fly" {
+  url = "postgres://postgres:<password>@localhost:5454/transactions?sslmode=disable"
+  migration {
+    dir = "file://db/migrations"
+  }
 }

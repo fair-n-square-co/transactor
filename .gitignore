@@ -10,3 +10,5 @@ gha-creds-*.json
 
 # test cover files
 cover.*
+
+db.txt
