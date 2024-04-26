@@ -7,19 +7,12 @@ name: Deploy to Fly.io
 
 on:
   workflow_dispatch:
-    inputs:
-      # we use a boolean input to deploy to fly io
-      deploy:
-        description: 'Deploy to Fly.io'
-        required: false
-        type: boolean
-        default: false
   release:
     types:
       - released
 
 concurrency:
-  group: ${{ github.event_name }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
