@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	pb "github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/transactions/v1alpha1"
+	"github.com/fair-n-square-co/transactions/internal/config"
 	"github.com/fair-n-square-co/transactions/internal/controller"
 	"github.com/fair-n-square-co/transactions/internal/db"
 	"google.golang.org/grpc/codes"
@@ -14,6 +15,7 @@ import (
 type GroupsServer struct {
 	pb.UnimplementedGroupServiceServer
 	controller controller.Controller
+	config     config.Config
 }
 
 func (g *GroupsServer) CreateGroup(ctx context.Context, req *pb.CreateGroupRequest) (*pb.CreateGroupResponse, error) {
@@ -36,7 +38,8 @@ func (g *GroupsServer) ListGroups(ctx context.Context, request *pb.ListGroupsReq
 }
 
 func NewGroupsServer() (pb.GroupServiceServer, error) {
-	dbClient, err := db.NewDB()
+	config := config.NewConfig()
+	dbClient, err := db.NewDB(config.Database)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create db client: %v", err)
 	}
@@ -46,5 +49,6 @@ func NewGroupsServer() (pb.GroupServiceServer, error) {
 	}
 	return &GroupsServer{
 		controller: controller,
+		config:     config,
 	}, nil
 }
