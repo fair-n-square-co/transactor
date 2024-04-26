@@ -1,6 +1,6 @@
 module github.com/fair-n-square-co/transactions
 
-go 1.22
+go 1.22.2
 
 require (
 	ariga.io/atlas-go-sdk v0.5.3
