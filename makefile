@@ -5,7 +5,7 @@ build:
 	@echo "Done."
 
 .PHONY: run
-run: build
+run: run/db build
 	@echo "Running..."
 	./bin/main
 	@echo "Done."
@@ -25,7 +25,7 @@ test/coverage: test
 .PHONY: run/db
 run/db:
 	@echo "Starting database..."
-	docker-compose up -d db
+	docker-compose up -d --no-recreate db
 	@echo "Done."
 
 .PHONY: migrate/gen
