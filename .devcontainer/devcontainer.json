@@ -2,11 +2,7 @@
 	"name": "Transactions Codespace",
 	"image": "mcr.microsoft.com/devcontainers/universal:2",
 	"features": {
-		"ghcr.io/marcozac/devcontainer-features/atlas:1": {
-			"communityEdition": true,
-			"version": "latest",
-			"goVersion": "1.20.7"
-		},
+		"ghcr.io/marcozac/devcontainer-features/atlas:1": {},
 		"ghcr.io/robbert229/devcontainer-features/postgresql-client:1": {
 			"version": "15"
 		},
