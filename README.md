@@ -73,3 +73,10 @@ Add your generate mockgen command at the top of your go file like:
 //go:generate mockgen -source=<file name> -destination=mocks/<file name> -package=mocks
 ```
 
+## Local Development
+
+### Making API call
+
+1. Install grpcui `brew install grpcui`
+2. Start the API server `make run`
+3. Make grpc call `grpcui -plaintext localhost:8080`

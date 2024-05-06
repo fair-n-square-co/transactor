@@ -25,12 +25,14 @@ func (g *groupController) CreateGroup(ctx context.Context, req *pb.CreateGroupRe
 	options := db.CreateGroupOptions{
 		Name: req.Name,
 	}
-	_, err := g.dbClient.CreateGroup(ctx, options)
+	groupId, err := g.dbClient.CreateGroup(ctx, options)
 	if err != nil {
 		return nil, err
 	}
 
-	resp := &pb.CreateGroupResponse{}
+	resp := &pb.CreateGroupResponse{
+		GroupId: groupId.String(),
+	}
 	return resp, nil
 }
 
