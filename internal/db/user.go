@@ -11,9 +11,22 @@ import (
 
 type User interface {
 	CreateUser(ctx context.Context, user CreateUserFields) (uuid.UUID, error)
+	GetUser(ctx context.Context, in GetUserInput) (*UserResponse, error)
 }
 
 type CreateUserFields struct {
+	Email string
+	Username string
+	FirstName string
+	LastName string
+}
+
+type GetUserInput struct {
+	Username string	 
+}
+
+type UserResponse struct {
+	ID   uuid.UUID
 	Email string
 	Username string
 	FirstName string
@@ -38,6 +51,23 @@ func (u *user) CreateUser(ctx context.Context, user CreateUserFields) (uuid.UUID
 		return uuid.Nil, fmt.Errorf("failed to create user: %v", result.Error)
 	}
 	return userModel.ID, nil
+}
+
+func (u *user) GetUser(ctx context.Context, in GetUserInput) (*UserResponse, error) {
+	var user models.User
+	result := u.db.Where("Username = ?", in.Username).First(&user)
+	if result.Error != nil {
+		return nil, fmt.Errorf("failed to get user: %v", result.Error)
+	}
+	
+	return &UserResponse{
+		ID:   user.ID,
+		Email: user.Email,
+		Username: user.Username,
+		FirstName: user.FirstName,
+		LastName: user.LastName,
+	}, nil
+	
 }
 
 func newUser(db *gorm.DB) User {

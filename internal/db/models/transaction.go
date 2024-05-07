@@ -17,4 +17,9 @@ type Transaction struct {
 	Amount          datatypes.MoneyType       `gorm:"not null;embedded;embeddedPrefix:amount_"`
 	Description     string                    `gorm:"not null"`
 	Type            datatypes.TransactionType `gorm:"not null;default:payment;type:transaction_type"`
+	CreatorID 		uint     
+    UpdatorID	    uint     
+	Creator 		User					  `gorm:"foreignKey:CreatorID"`
+	LastUpdatedUser User					  `gorm:"foreignKey:UpdatorID"`
 }
+// reference https://stackoverflow.com/questions/77268541/gorm-two-foreign-keys-to-one-table

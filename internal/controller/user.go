@@ -9,6 +9,7 @@ import (
 
 type UserController interface {
 	CreateUser(ctx context.Context, req *pb.CreateUserRequest) (*pb.CreateUserResponse, error)
+	GetUser(ctx context.Context, in *pb.GetUserRequest) (*pb.GetUserResponse, error)
 }
 
 type userController struct {
@@ -30,6 +31,28 @@ func (u *userController) CreateUser(ctx context.Context, req *pb.CreateUserReque
 
 	return &pb.CreateUserResponse{
 		UserId: userId.String(),
+	}, nil
+}
+
+func (u *userController) GetUser(ctx context.Context, in *pb.GetUserRequest) (*pb.GetUserResponse, error) {
+	input := db.GetUserInput{
+		Username: in.Username,
+	}
+
+	user, err := u.dbClient.GetUser(ctx, input)
+	if err != nil {
+		return nil, err
+	}
+
+	var userResponse = &pb.User{
+		UserId:    user.ID.String(),
+		Username:  user.Username,
+		Email:	   user.Email,
+		FirstName: user.FirstName,
+		LastName:  user.LastName,
+	}
+	return &pb.GetUserResponse{
+		User: userResponse,
 	}, nil
 }
 

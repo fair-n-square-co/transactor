@@ -33,6 +33,20 @@ func (u *UserServer) CreateUser(ctx context.Context, req *pb.CreateUserRequest) 
 	return res, nil
 }
 
+func (u *UserServer) GetUser(ctx context.Context, req *pb.GetUserRequest) (*pb.GetUserResponse, error) {
+	if req.Username == "" {
+		return nil, status.Error(codes.InvalidArgument, "Username cannot be empty")
+	}
+
+	res, err := u.controller.GetUser(ctx, req)
+	if err != nil {
+		log.Printf("Get User error: %v", err)
+		return nil, status.Error(codes.Internal, "Error occured while getting user information")
+	}
+
+	return res, nil
+}
+
 func NewUserServer() (pb.UserServiceServer, error) {
 	config := config.NewConfig()
 	dbClient, err := db.NewDB(config.Database)
