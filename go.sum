@@ -33,8 +33,8 @@ github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/dnaeon/go-vcr v1.1.0/go.mod h1:M7tiix8f0r6mKKJ3Yq/kqU1OYf3MnfmBWVbPx/yU9ko=
 github.com/dnaeon/go-vcr v1.2.0/go.mod h1:R4UdLID7HZT3taECzJs4YgbbH6PIGXB6W/sc5OLb6RQ=
-github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/transactions/v1alpha1 v0.3.0 h1:N9gYBvkE9YYvR6MZCnGqCOkkrLVyXU8sIVaqefgqctA=
-github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/transactions/v1alpha1 v0.3.0/go.mod h1:RHrWkCP8GJCmFwdE/PnAcTT+h4URg6A4pSmzum6sXV4=
+github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/transactions/v1alpha1 v0.4.0 h1:MtvZOB924oUNF9KExpOUORtdmYijSk/zz99+v7oAtaA=
+github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/transactions/v1alpha1 v0.4.0/go.mod h1:r+B6Fvc/CV9kzUCys/07noeKV8KIpBMgprG3heatS+Y=
 github.com/go-sql-driver/mysql v1.7.0/go.mod h1:OXbVy3sEdcQ2Doequ6Z5BW6fXNQTmx+9S1MCJN5yJMI=
 github.com/go-sql-driver/mysql v1.8.1 h1:LedoTUt/eveggdHS9qUFC1EFSa8bU2+1pZjSRpvNJ1Y=
 github.com/go-sql-driver/mysql v1.8.1/go.mod h1:wEBSXgmK//2ZFJyE+qWnIsVGmvmEKlqwuVSjsCm7DZg=

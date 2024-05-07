@@ -17,6 +17,4 @@ type Transaction struct {
 	Amount          datatypes.MoneyType       `gorm:"not null;embedded;embeddedPrefix:amount_"`
 	Description     string                    `gorm:"not null"`
 	Type            datatypes.TransactionType `gorm:"not null;default:payment;type:transaction_type"`
-	LastUpdatedUser User                      `gorm:"foreignKey:ID"`
-	Creator         User                      `gorm:"foreignKey:ID"`
 }

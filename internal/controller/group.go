@@ -30,10 +30,9 @@ func (g *groupController) CreateGroup(ctx context.Context, req *pb.CreateGroupRe
 		return nil, err
 	}
 
-	resp := &pb.CreateGroupResponse{
+	return &pb.CreateGroupResponse{
 		GroupId: groupId.String(),
-	}
-	return resp, nil
+	}, nil
 }
 
 // ListGroups lists the groups using the db package,

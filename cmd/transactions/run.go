@@ -30,18 +30,24 @@ func run() {
 			log.Println(err)
 		}
 	}(lis)
-	server := grpc.NewServer()
-	reflection.Register(server)
+	grpcServer := grpc.NewServer()
+	reflection.Register(grpcServer)
 
 	// Register API v1
-	service, err := transactions.NewGroupsServer()
+	groupServer, err := transactions.NewGroupsServer()
 	if err != nil {
 		log.Fatalf("Failed at: %v", err)
 	}
-	v1alpha1.RegisterGroupServiceServer(server, service)
+	v1alpha1.RegisterGroupServiceServer(grpcServer, groupServer)
+
+	userServer, err := transactions.NewUserServer()
+	if err != nil {
+		log.Fatalf("Failed at: %v", err)
+	}
+	v1alpha1.RegisterUserServiceServer(grpcServer, userServer)
 
 	log.Printf("listening on port %s", port)
-	if err = server.Serve(lis); err != nil {
+	if err = grpcServer.Serve(lis); err != nil {
 		log.Fatalf("Failed at: %v", err)
 	}
 }
