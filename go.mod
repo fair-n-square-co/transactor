@@ -5,7 +5,7 @@ go 1.22.2
 require (
 	ariga.io/atlas-go-sdk v0.5.3
 	ariga.io/atlas-provider-gorm v0.3.4
-	github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/transactions/v1alpha1 v0.3.0
+	github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/transactions/v1alpha1 v0.4.0
 	github.com/google/uuid v1.6.0
 	github.com/stretchr/testify v1.9.0
 	go.uber.org/mock v0.4.0
