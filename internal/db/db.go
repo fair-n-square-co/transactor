@@ -9,19 +9,20 @@ import (
 	"gorm.io/gorm"
 )
 
-//go:generate mockgen -source=db.go -destination=mocks/mock_db.go -package=dbmocks
-
-type Client interface {
-	Group
-	User
+type Client struct {
+	groupDBClient *Group
+	userDBClient  *User
 }
 
-type client struct {
-	Group
-	User
+func (c *Client) GroupClient() *Group {
+	return c.groupDBClient
 }
 
-func NewDB(cfg config.DatabaseConfig) (Client, error) {
+func (c *Client) UserClient() *User {
+	return c.userDBClient
+}
+
+func NewDB(cfg config.DatabaseConfig) (*Client, error) {
 	db, err := gorm.Open(postgres.Open(cfg.DSN), gormconfig.GetGormConfig())
 	if err != nil {
 		return nil, fmt.Errorf("failed to connect database: %v", err)
@@ -30,7 +31,7 @@ func NewDB(cfg config.DatabaseConfig) (Client, error) {
 	group := newGroup(db)
 	user := newUser(db)
 
-	return &client{
+	return &Client{
 		group,
 		user,
 	}, nil
