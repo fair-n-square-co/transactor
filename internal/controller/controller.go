@@ -6,14 +6,17 @@ import "github.com/fair-n-square-co/transactions/internal/db"
 
 type Controller interface {
 	GroupController
+	UserController
 }
 
 type controller struct {
 	GroupController
+	UserController
 }
 
 func NewController(dbClient db.Client) (Controller, error) {
 	return &controller{
 		NewGroupController(dbClient),
+		NewUserController(dbClient),
 	}, nil
 }

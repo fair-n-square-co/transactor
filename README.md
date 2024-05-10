@@ -46,7 +46,7 @@ atlas migrate diff <migration name> --env dev
 ```
 5. Run the following command to apply the migration
 ```sh
-atlas migrate up --env dev
+atlas migrate apply --env dev
 ```
 
 

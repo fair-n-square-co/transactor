@@ -36,7 +36,7 @@ migrate/gen:
 	@echo "=============================================="
 
 .PHONY: migrate/db
-migrate/db: run/db
+migrate/db:
 	@echo "Migrating database..."
 	atlas migrate apply --env dev
 	@echo "Done."

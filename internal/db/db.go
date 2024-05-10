@@ -13,10 +13,12 @@ import (
 
 type Client interface {
 	Group
+	User
 }
 
 type client struct {
 	Group
+	User
 }
 
 func NewDB(cfg config.DatabaseConfig) (Client, error) {
@@ -26,8 +28,10 @@ func NewDB(cfg config.DatabaseConfig) (Client, error) {
 	}
 
 	group := newGroup(db)
+	user := newUser(db)
 
 	return &client{
 		group,
+		user,
 	}, nil
 }
