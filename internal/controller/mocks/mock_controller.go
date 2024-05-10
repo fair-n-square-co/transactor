@@ -55,6 +55,36 @@ func (mr *MockControllerMockRecorder) CreateGroup(ctx, req any) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateGroup", reflect.TypeOf((*MockController)(nil).CreateGroup), ctx, req)
 }
 
+// CreateUser mocks base method.
+func (m *MockController) CreateUser(ctx context.Context, req *v1alpha1.CreateUserRequest) (*v1alpha1.CreateUserResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateUser", ctx, req)
+	ret0, _ := ret[0].(*v1alpha1.CreateUserResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateUser indicates an expected call of CreateUser.
+func (mr *MockControllerMockRecorder) CreateUser(ctx, req any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateUser", reflect.TypeOf((*MockController)(nil).CreateUser), ctx, req)
+}
+
+// GetUser mocks base method.
+func (m *MockController) GetUser(ctx context.Context, in *v1alpha1.GetUserRequest) (*v1alpha1.GetUserResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetUser", ctx, in)
+	ret0, _ := ret[0].(*v1alpha1.GetUserResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetUser indicates an expected call of GetUser.
+func (mr *MockControllerMockRecorder) GetUser(ctx, in any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetUser", reflect.TypeOf((*MockController)(nil).GetUser), ctx, in)
+}
+
 // ListGroups mocks base method.
 func (m *MockController) ListGroups(ctx context.Context, req *v1alpha1.ListGroupsRequest) (*v1alpha1.ListGroupsResponse, error) {
 	m.ctrl.T.Helper()

@@ -56,6 +56,36 @@ func (mr *MockClientMockRecorder) CreateGroup(ctx, group any) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateGroup", reflect.TypeOf((*MockClient)(nil).CreateGroup), ctx, group)
 }
 
+// CreateUser mocks base method.
+func (m *MockClient) CreateUser(ctx context.Context, user db.CreateUserFields) (uuid.UUID, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateUser", ctx, user)
+	ret0, _ := ret[0].(uuid.UUID)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateUser indicates an expected call of CreateUser.
+func (mr *MockClientMockRecorder) CreateUser(ctx, user any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateUser", reflect.TypeOf((*MockClient)(nil).CreateUser), ctx, user)
+}
+
+// GetUser mocks base method.
+func (m *MockClient) GetUser(ctx context.Context, in db.GetUserInput) (*db.UserResponse, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetUser", ctx, in)
+	ret0, _ := ret[0].(*db.UserResponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetUser indicates an expected call of GetUser.
+func (mr *MockClientMockRecorder) GetUser(ctx, in any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetUser", reflect.TypeOf((*MockClient)(nil).GetUser), ctx, in)
+}
+
 // ListGroups mocks base method.
 func (m *MockClient) ListGroups(ctx context.Context) (*db.GroupList, error) {
 	m.ctrl.T.Helper()
