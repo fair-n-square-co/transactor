@@ -5,23 +5,24 @@ import (
 
 	pb "github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/transactions/v1alpha1"
 	"github.com/fair-n-square-co/transactions/internal/db"
+	"github.com/google/uuid"
 )
 
-type UserController interface {
-	CreateUser(ctx context.Context, req *pb.CreateUserRequest) (*pb.CreateUserResponse, error)
-	GetUser(ctx context.Context, in *pb.GetUserRequest) (*pb.GetUserResponse, error)
+type UserDBClient interface {
+	CreateUser(ctx context.Context, user db.CreateUserFields) (uuid.UUID, error)
+	GetUser(ctx context.Context, in db.GetUserInput) (*db.UserResponse, error)
 }
 
-type userController struct {
-	dbClient db.Client
+type UserController struct {
+	dbClient UserDBClient
 }
 
-func (u *userController) CreateUser(ctx context.Context, req *pb.CreateUserRequest) (*pb.CreateUserResponse, error) {
+func (u *UserController) CreateUser(ctx context.Context, req *pb.CreateUserRequest) (*pb.CreateUserResponse, error) {
 	fields := db.CreateUserFields{
-		Email: req.Email,
-		Username: req.Username,
+		Email:     req.Email,
+		Username:  req.Username,
 		FirstName: req.FirstName,
-		LastName: req.LastName,
+		LastName:  req.LastName,
 	}
 
 	userId, err := u.dbClient.CreateUser(ctx, fields)
@@ -34,7 +35,7 @@ func (u *userController) CreateUser(ctx context.Context, req *pb.CreateUserReque
 	}, nil
 }
 
-func (u *userController) GetUser(ctx context.Context, in *pb.GetUserRequest) (*pb.GetUserResponse, error) {
+func (u *UserController) GetUser(ctx context.Context, in *pb.GetUserRequest) (*pb.GetUserResponse, error) {
 	input := db.GetUserInput{
 		Username: in.Username,
 	}
@@ -47,7 +48,7 @@ func (u *userController) GetUser(ctx context.Context, in *pb.GetUserRequest) (*p
 	var userResponse = &pb.User{
 		UserId:    user.ID.String(),
 		Username:  user.Username,
-		Email:	   user.Email,
+		Email:     user.Email,
 		FirstName: user.FirstName,
 		LastName:  user.LastName,
 	}
@@ -57,8 +58,8 @@ func (u *userController) GetUser(ctx context.Context, in *pb.GetUserRequest) (*p
 }
 
 // NewUserController creates a new instance of UserController.
-func NewUserController(dbClient db.Client) UserController {
-	return &userController{
+func NewUserController(dbClient UserDBClient) *UserController {
+	return &UserController{
 		dbClient: dbClient,
 	}
 }

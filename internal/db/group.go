@@ -9,14 +9,6 @@ import (
 	"gorm.io/gorm"
 )
 
-//go:generate mockgen -source=group.go -destination=mocks/mock_group.go -package=dbmocks
-
-type Group interface {
-	// CreateGroup creates a new group in the database
-	CreateGroup(ctx context.Context, group CreateGroupOptions) (uuid.UUID, error)
-	ListGroups(ctx context.Context) (*GroupList, error)
-}
-
 type CreateGroupOptions struct {
 	Name string
 }
@@ -30,11 +22,11 @@ type GroupList struct {
 	Groups []GroupData
 }
 
-type group struct {
+type Group struct {
 	db *gorm.DB
 }
 
-func (g *group) CreateGroup(ctx context.Context, groupOptions CreateGroupOptions) (uuid.UUID, error) {
+func (g *Group) CreateGroup(ctx context.Context, groupOptions CreateGroupOptions) (uuid.UUID, error) {
 	groupModel := models.Group{
 		Name: groupOptions.Name,
 	}
@@ -45,7 +37,7 @@ func (g *group) CreateGroup(ctx context.Context, groupOptions CreateGroupOptions
 	return groupModel.ID, nil
 }
 
-func (g *group) ListGroups(ctx context.Context) (*GroupList, error) {
+func (g *Group) ListGroups(ctx context.Context) (*GroupList, error) {
 	var groups []models.Group
 	var groupList GroupList
 	result := g.db.Find(&groups)
@@ -61,8 +53,8 @@ func (g *group) ListGroups(ctx context.Context) (*GroupList, error) {
 	return &groupList, nil
 }
 
-func newGroup(db *gorm.DB) Group {
-	return &group{
+func newGroup(db *gorm.DB) *Group {
+	return &Group{
 		db: db,
 	}
 }

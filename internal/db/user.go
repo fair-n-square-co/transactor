@@ -9,40 +9,35 @@ import (
 	"gorm.io/gorm"
 )
 
-type User interface {
-	CreateUser(ctx context.Context, user CreateUserFields) (uuid.UUID, error)
-	GetUser(ctx context.Context, in GetUserInput) (*UserResponse, error)
-}
-
 type CreateUserFields struct {
-	Email string
-	Username string
+	Email     string
+	Username  string
 	FirstName string
-	LastName string
+	LastName  string
 }
 
 type GetUserInput struct {
-	Username string	 
+	Username string
 }
 
 type UserResponse struct {
-	ID   uuid.UUID
-	Email string
-	Username string
+	ID        uuid.UUID
+	Email     string
+	Username  string
 	FirstName string
-	LastName string
+	LastName  string
 }
 
-type user struct {
+type User struct {
 	db *gorm.DB
 }
 
-func (u *user) CreateUser(ctx context.Context, user CreateUserFields) (uuid.UUID, error) {
-	userModel := models.User {
-		Email: user.Email,
-		Username: user.Username,
+func (u *User) CreateUser(ctx context.Context, user CreateUserFields) (uuid.UUID, error) {
+	userModel := models.User{
+		Email:     user.Email,
+		Username:  user.Username,
 		FirstName: user.FirstName,
-		LastName: user.LastName,
+		LastName:  user.LastName,
 	}
 
 	result := u.db.Create(&userModel)
@@ -53,25 +48,25 @@ func (u *user) CreateUser(ctx context.Context, user CreateUserFields) (uuid.UUID
 	return userModel.ID, nil
 }
 
-func (u *user) GetUser(ctx context.Context, in GetUserInput) (*UserResponse, error) {
+func (u *User) GetUser(ctx context.Context, in GetUserInput) (*UserResponse, error) {
 	var user models.User
 	result := u.db.Where("Username = ?", in.Username).First(&user)
 	if result.Error != nil {
 		return nil, fmt.Errorf("failed to get user: %v", result.Error)
 	}
-	
+
 	return &UserResponse{
-		ID:   user.ID,
-		Email: user.Email,
-		Username: user.Username,
+		ID:        user.ID,
+		Email:     user.Email,
+		Username:  user.Username,
 		FirstName: user.FirstName,
-		LastName: user.LastName,
+		LastName:  user.LastName,
 	}, nil
-	
+
 }
 
-func newUser(db *gorm.DB) User {
-	return &user{
+func newUser(db *gorm.DB) *User {
+	return &User{
 		db: db,
 	}
 }

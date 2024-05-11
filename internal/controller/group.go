@@ -5,23 +5,25 @@ import (
 
 	pb "github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/transactions/v1alpha1"
 	"github.com/fair-n-square-co/transactions/internal/db"
+	"github.com/google/uuid"
 )
 
 //go:generate mockgen -source=group.go -destination=mocks/mock_group.go -package=controllermocks
 
-type GroupController interface {
-	CreateGroup(ctx context.Context, req *pb.CreateGroupRequest) (*pb.CreateGroupResponse, error)
-	ListGroups(ctx context.Context, req *pb.ListGroupsRequest) (*pb.ListGroupsResponse, error)
+type GroupDBClient interface {
+	// CreateGroup creates a new group in the database
+	CreateGroup(ctx context.Context, group db.CreateGroupOptions) (uuid.UUID, error)
+	ListGroups(ctx context.Context) (*db.GroupList, error)
 }
 
 // groupController is responsible for group requests.
-type groupController struct {
-	dbClient db.Client
+type GroupController struct {
+	dbClient GroupDBClient
 }
 
 // CreateGroup creates the group using the db package,
 // and returns the proto response.
-func (g *groupController) CreateGroup(ctx context.Context, req *pb.CreateGroupRequest) (*pb.CreateGroupResponse, error) {
+func (g *GroupController) CreateGroup(ctx context.Context, req *pb.CreateGroupRequest) (*pb.CreateGroupResponse, error) {
 	options := db.CreateGroupOptions{
 		Name: req.Name,
 	}
@@ -37,7 +39,7 @@ func (g *groupController) CreateGroup(ctx context.Context, req *pb.CreateGroupRe
 
 // ListGroups lists the groups using the db package,
 // and returns the proto response.
-func (g *groupController) ListGroups(ctx context.Context, req *pb.ListGroupsRequest) (*pb.ListGroupsResponse, error) {
+func (g *GroupController) ListGroups(ctx context.Context, req *pb.ListGroupsRequest) (*pb.ListGroupsResponse, error) {
 	groups, err := g.dbClient.ListGroups(ctx)
 	if err != nil {
 		return nil, err
@@ -55,8 +57,8 @@ func (g *groupController) ListGroups(ctx context.Context, req *pb.ListGroupsRequ
 }
 
 // NewGroupController creates a new instance of GroupController.
-func NewGroupController(dbClient db.Client) GroupController {
-	return &groupController{
+func NewGroupController(dbClient GroupDBClient) *GroupController {
+	return &GroupController{
 		dbClient: dbClient,
 	}
 }

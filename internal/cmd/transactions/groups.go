@@ -2,23 +2,27 @@ package transactions
 
 import (
 	"context"
-	"fmt"
 
 	pb "github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/transactions/v1alpha1"
 	"github.com/fair-n-square-co/transactions/internal/config"
-	"github.com/fair-n-square-co/transactions/internal/controller"
-	"github.com/fair-n-square-co/transactions/internal/db"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
 
-type GroupsServer struct {
+//go:generate mockgen -source=group.go -destination=mocks/mock_group.go -package=controllermocks
+
+type GroupController interface {
+	CreateGroup(ctx context.Context, req *pb.CreateGroupRequest) (*pb.CreateGroupResponse, error)
+	ListGroups(ctx context.Context, req *pb.ListGroupsRequest) (*pb.ListGroupsResponse, error)
+}
+
+type GroupServer struct {
 	pb.UnimplementedGroupServiceServer
-	controller controller.Controller
+	controller GroupController
 	config     config.Config
 }
 
-func (g *GroupsServer) CreateGroup(ctx context.Context, req *pb.CreateGroupRequest) (*pb.CreateGroupResponse, error) {
+func (g *GroupServer) CreateGroup(ctx context.Context, req *pb.CreateGroupRequest) (*pb.CreateGroupResponse, error) {
 	if req.Name == "" {
 		return nil, status.Error(codes.InvalidArgument, "name cannot be empty")
 	}
@@ -29,7 +33,7 @@ func (g *GroupsServer) CreateGroup(ctx context.Context, req *pb.CreateGroupReque
 	return res, nil
 }
 
-func (g *GroupsServer) ListGroups(ctx context.Context, request *pb.ListGroupsRequest) (*pb.ListGroupsResponse, error) {
+func (g *GroupServer) ListGroups(ctx context.Context, request *pb.ListGroupsRequest) (*pb.ListGroupsResponse, error) {
 	res, err := g.controller.ListGroups(ctx, request)
 	if err != nil {
 		return nil, err
@@ -37,18 +41,8 @@ func (g *GroupsServer) ListGroups(ctx context.Context, request *pb.ListGroupsReq
 	return res, nil
 }
 
-func NewGroupsServer() (pb.GroupServiceServer, error) {
-	config := config.NewConfig()
-	dbClient, err := db.NewDB(config.Database)
-	if err != nil {
-		return nil, fmt.Errorf("failed to create db client: %v", err)
-	}
-	controller, err := controller.NewController(dbClient)
-	if err != nil {
-		return nil, fmt.Errorf("failed to create controller: %v", err)
-	}
-	return &GroupsServer{
-		controller: controller,
-		config:     config,
+func NewGroupServer(groupController GroupController) (*GroupServer, error) {
+	return &GroupServer{
+		controller: groupController,
 	}, nil
 }

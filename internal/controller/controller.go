@@ -1,22 +1,36 @@
 package controller
 
-import "github.com/fair-n-square-co/transactions/internal/db"
+import (
+	"github.com/fair-n-square-co/transactions/internal/config"
+	"github.com/fair-n-square-co/transactions/internal/db"
+)
 
-//go:generate mockgen -source=controller.go -destination=mocks/mock_controller.go -package=controllermocks
-
-type Controller interface {
-	GroupController
-	UserController
+type DBClient interface {
+	UserDBClient
+	GroupDBClient
 }
 
-type controller struct {
-	GroupController
-	UserController
+type Controller struct {
+	u *UserController
+	g *GroupController
 }
 
-func NewController(dbClient db.Client) (Controller, error) {
-	return &controller{
-		NewGroupController(dbClient),
-		NewUserController(dbClient),
+func (c *Controller) UserController() *UserController {
+	return c.u
+}
+
+func (c *Controller) GroupController() *GroupController {
+	return c.g
+}
+
+func NewController(cfg config.DatabaseConfig) (*Controller, error) {
+	dbClient, err := db.NewDB(cfg)
+	if err != nil {
+		return nil, err
+	}
+
+	return &Controller{
+		u: NewUserController(dbClient.UserClient()),
+		g: NewGroupController(dbClient.GroupClient()),
 	}, nil
 }
