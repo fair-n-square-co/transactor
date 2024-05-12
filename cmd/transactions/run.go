@@ -7,6 +7,7 @@ import (
 
 	v1alpha1 "github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/transactions/v1alpha1"
 	"github.com/fair-n-square-co/transactions/internal/cmd/transactions"
+	"github.com/fair-n-square-co/transactions/pkg/middlewares/authentication"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
@@ -30,7 +31,10 @@ func run() {
 			log.Println(err)
 		}
 	}(lis)
-	grpcServer := grpc.NewServer()
+
+	grpcServer := grpc.NewServer(
+		grpc.UnaryInterceptor(authentication.NewFirebaseAuthMiddleware().AuthInterceptor),
+	)
 	reflection.Register(grpcServer)
 
 	// Register API v1
