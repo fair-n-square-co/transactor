@@ -80,3 +80,10 @@ Add your generate mockgen command at the top of your go file like:
 1. Install grpcui `brew install grpcui`
 2. Start the API server `make run`
 3. Make grpc call `grpcui -plaintext localhost:8080`
+
+
+### Setting google cloud environment
+
+```bash
+gcloud auth application-default login
+```
