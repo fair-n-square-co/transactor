@@ -11,7 +11,7 @@ require (
 	go.uber.org/mock v0.4.0
 	google.golang.org/genproto v0.0.0-20240415180920-8c6c420018be
 	google.golang.org/grpc v1.63.2
-	gorm.io/driver/postgres v1.5.7
+	gorm.io/driver/postgres v1.5.9
 	gorm.io/gorm v1.25.10
 )
 
