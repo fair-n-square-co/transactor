@@ -16,7 +16,7 @@ type CreateUserFields struct {
 	LastName  string
 }
 
-type GetUserInput struct {
+type GetUserOptions struct {
 	Username string
 }
 
@@ -48,9 +48,9 @@ func (u *User) CreateUser(ctx context.Context, user CreateUserFields) (uuid.UUID
 	return userModel.ID, nil
 }
 
-func (u *User) GetUser(ctx context.Context, in GetUserInput) (*UserResponse, error) {
+func (u *User) GetUser(ctx context.Context, options GetUserOptions) (*UserResponse, error) {
 	var user models.User
-	result := u.db.Where("Username = ?", in.Username).First(&user)
+	result := u.db.Where("Username = ?", options.Username).First(&user)
 	if result.Error != nil {
 		return nil, fmt.Errorf("failed to get user: %v", result.Error)
 	}

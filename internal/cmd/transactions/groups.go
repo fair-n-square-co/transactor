@@ -4,7 +4,6 @@ import (
 	"context"
 
 	pb "github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/transactions/v1alpha1"
-	"github.com/fair-n-square-co/transactions/internal/config"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -19,7 +18,6 @@ type GroupController interface {
 type GroupServer struct {
 	pb.UnimplementedGroupServiceServer
 	controller GroupController
-	config     config.Config
 }
 
 func (g *GroupServer) CreateGroup(ctx context.Context, req *pb.CreateGroupRequest) (*pb.CreateGroupResponse, error) {

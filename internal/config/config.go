@@ -23,8 +23,8 @@ func GetDatabaseConfig() DatabaseConfig {
 	}
 }
 
-func NewConfig() Config {
-	return Config{
+func NewConfig() *Config {
+	return &Config{
 		Database: GetDatabaseConfig(),
 	}
 }
