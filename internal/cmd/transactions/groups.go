@@ -13,6 +13,7 @@ import (
 type GroupController interface {
 	CreateGroup(ctx context.Context, req *pb.CreateGroupRequest) (*pb.CreateGroupResponse, error)
 	ListGroups(ctx context.Context, req *pb.ListGroupsRequest) (*pb.ListGroupsResponse, error)
+	UpdateUsersInGroup(ctx context.Context, req *pb.UpdateUsersInGroupRequest) (*pb.UpdateUsersInGroupResponse, error)
 }
 
 type GroupServer struct {
@@ -33,6 +34,14 @@ func (g *GroupServer) CreateGroup(ctx context.Context, req *pb.CreateGroupReques
 
 func (g *GroupServer) ListGroups(ctx context.Context, request *pb.ListGroupsRequest) (*pb.ListGroupsResponse, error) {
 	res, err := g.controller.ListGroups(ctx, request)
+	if err != nil {
+		return nil, err
+	}
+	return res, nil
+}
+
+func (g *GroupServer) UpdateUsersInGroup(ctx context.Context, request *pb.UpdateUsersInGroupRequest) (*pb.UpdateUsersInGroupResponse, error) {
+	res, err := g.controller.UpdateUsersInGroup(ctx, request)
 	if err != nil {
 		return nil, err
 	}
