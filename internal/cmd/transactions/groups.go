@@ -3,12 +3,12 @@ package transactions
 import (
 	"context"
 
-	pb "github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/transactions/v1alpha1"
+	pb "github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/service/user/v1alpha1"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
 
-//go:generate mockgen -source=group.go -destination=mocks/mock_group.go -package=controllermocks
+//go:generate mockgen -source=groups.go -destination=mocks/mock_groups.go -package=controllermocks
 
 type GroupController interface {
 	CreateGroup(ctx context.Context, req *pb.CreateGroupRequest) (*pb.CreateGroupResponse, error)

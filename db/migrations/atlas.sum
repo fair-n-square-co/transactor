@@ -1,4 +1,5 @@
-h1:LmS3rO9lunMamD4+rYZ5sAmgnZwDueLIT+pydU1bnGA=
+h1:1IRfNLrPPLTOg+Y3uiEHg6ti1EsB2sAIHDLjHE+EfeA=
 20240414223553_initialise_db.sql h1:Yw4qgH/PH5kzWGbv68HTvFQVD19fMQLvv+YGaZ2SGkA=
 20240507131420_remove_user_transaction_dependency.sql h1:NgI2st7xmsBW29qblNG9lQ78cYSgOhnPoB0jTdMApvo=
 20240507140307_add_foreign_key_constraints_transaction_table.sql h1:LuaGV9XdYP4IkLrdWzc0x7GA+m14ReY/YZ8aT6DQftU=
+20240822074127_remove_phone_from_user.sql h1:Y0x87VniRFMJoVmpQqTL5qNNtMiJWoo0nfV4pRz+0XE=

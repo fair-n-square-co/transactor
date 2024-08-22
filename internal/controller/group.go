@@ -3,7 +3,7 @@ package controller
 import (
 	"context"
 
-	pb "github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/transactions/v1alpha1"
+	pb "github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/service/user/v1alpha1"
 	"github.com/fair-n-square-co/transactions/internal/db"
 	"github.com/google/uuid"
 )

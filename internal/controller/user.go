@@ -3,14 +3,15 @@ package controller
 import (
 	"context"
 
-	pb "github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/transactions/v1alpha1"
+	pb "github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/service/user/v1alpha1"
+	usertypepb "github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/type/user/v1alpha1"
 	"github.com/fair-n-square-co/transactions/internal/db"
 	"github.com/google/uuid"
 )
 
 type UserDBClient interface {
 	CreateUser(ctx context.Context, user db.CreateUserFields) (uuid.UUID, error)
-	GetUser(ctx context.Context, in db.GetUserInput) (*db.UserResponse, error)
+	GetUser(ctx context.Context, in db.GetUserOptions) (*db.UserResponse, error)
 }
 
 type UserController struct {
@@ -36,7 +37,7 @@ func (u *UserController) CreateUser(ctx context.Context, req *pb.CreateUserReque
 }
 
 func (u *UserController) GetUser(ctx context.Context, in *pb.GetUserRequest) (*pb.GetUserResponse, error) {
-	input := db.GetUserInput{
+	input := db.GetUserOptions{
 		Username: in.Username,
 	}
 
@@ -45,7 +46,7 @@ func (u *UserController) GetUser(ctx context.Context, in *pb.GetUserRequest) (*p
 		return nil, err
 	}
 
-	var userResponse = &pb.User{
+	var userResponse = &usertypepb.User{
 		UserId:    user.ID.String(),
 		Username:  user.Username,
 		Email:     user.Email,
