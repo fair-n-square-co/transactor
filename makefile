@@ -5,9 +5,14 @@ build:
 	@echo "Done."
 
 .PHONY: run
-run: run/db build
+run: run/db migrate/db build
 	@echo "Running..."
 	./bin/main
+	@echo "Done."
+
+dev: run/db migrate/db
+	@echo "Running in dev mode..."
+	air --build.cmd "go build -o bin/main ./cmd/transactions" --build.bin "./bin/main"
 	@echo "Done."
 
 .PHONY: test
@@ -25,7 +30,7 @@ test/coverage: test
 .PHONY: run/db
 run/db:
 	@echo "Starting database..."
-	docker-compose up -d --no-recreate db
+	docker compose up -d --no-recreate db
 	@echo "Done."
 
 .PHONY: migrate/gen

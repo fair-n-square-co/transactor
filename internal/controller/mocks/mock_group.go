@@ -13,59 +13,60 @@ import (
 	context "context"
 	reflect "reflect"
 
-	v1alpha1 "github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/transactions/v1alpha1"
+	db "github.com/fair-n-square-co/transactions/internal/db"
+	uuid "github.com/google/uuid"
 	gomock "go.uber.org/mock/gomock"
 )
 
-// MockGroupController is a mock of GroupController interface.
-type MockGroupController struct {
+// MockGroupDBClient is a mock of GroupDBClient interface.
+type MockGroupDBClient struct {
 	ctrl     *gomock.Controller
-	recorder *MockGroupControllerMockRecorder
+	recorder *MockGroupDBClientMockRecorder
 }
 
-// MockGroupControllerMockRecorder is the mock recorder for MockGroupController.
-type MockGroupControllerMockRecorder struct {
-	mock *MockGroupController
+// MockGroupDBClientMockRecorder is the mock recorder for MockGroupDBClient.
+type MockGroupDBClientMockRecorder struct {
+	mock *MockGroupDBClient
 }
 
-// NewMockGroupController creates a new mock instance.
-func NewMockGroupController(ctrl *gomock.Controller) *MockGroupController {
-	mock := &MockGroupController{ctrl: ctrl}
-	mock.recorder = &MockGroupControllerMockRecorder{mock}
+// NewMockGroupDBClient creates a new mock instance.
+func NewMockGroupDBClient(ctrl *gomock.Controller) *MockGroupDBClient {
+	mock := &MockGroupDBClient{ctrl: ctrl}
+	mock.recorder = &MockGroupDBClientMockRecorder{mock}
 	return mock
 }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
-func (m *MockGroupController) EXPECT() *MockGroupControllerMockRecorder {
+func (m *MockGroupDBClient) EXPECT() *MockGroupDBClientMockRecorder {
 	return m.recorder
 }
 
 // CreateGroup mocks base method.
-func (m *MockGroupController) CreateGroup(ctx context.Context, req *v1alpha1.CreateGroupRequest) (*v1alpha1.CreateGroupResponse, error) {
+func (m *MockGroupDBClient) CreateGroup(ctx context.Context, group db.CreateGroupOptions) (uuid.UUID, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "CreateGroup", ctx, req)
-	ret0, _ := ret[0].(*v1alpha1.CreateGroupResponse)
+	ret := m.ctrl.Call(m, "CreateGroup", ctx, group)
+	ret0, _ := ret[0].(uuid.UUID)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // CreateGroup indicates an expected call of CreateGroup.
-func (mr *MockGroupControllerMockRecorder) CreateGroup(ctx, req any) *gomock.Call {
+func (mr *MockGroupDBClientMockRecorder) CreateGroup(ctx, group any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateGroup", reflect.TypeOf((*MockGroupController)(nil).CreateGroup), ctx, req)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateGroup", reflect.TypeOf((*MockGroupDBClient)(nil).CreateGroup), ctx, group)
 }
 
 // ListGroups mocks base method.
-func (m *MockGroupController) ListGroups(ctx context.Context, req *v1alpha1.ListGroupsRequest) (*v1alpha1.ListGroupsResponse, error) {
+func (m *MockGroupDBClient) ListGroups(ctx context.Context) (*db.GroupList, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "ListGroups", ctx, req)
-	ret0, _ := ret[0].(*v1alpha1.ListGroupsResponse)
+	ret := m.ctrl.Call(m, "ListGroups", ctx)
+	ret0, _ := ret[0].(*db.GroupList)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // ListGroups indicates an expected call of ListGroups.
-func (mr *MockGroupControllerMockRecorder) ListGroups(ctx, req any) *gomock.Call {
+func (mr *MockGroupDBClientMockRecorder) ListGroups(ctx any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListGroups", reflect.TypeOf((*MockGroupController)(nil).ListGroups), ctx, req)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListGroups", reflect.TypeOf((*MockGroupDBClient)(nil).ListGroups), ctx)
 }

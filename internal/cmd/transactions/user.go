@@ -3,8 +3,9 @@ package transactions
 import (
 	"context"
 	"log"
+	"strings"
 
-	pb "github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/transactions/v1alpha1"
+	pb "github.com/fair-n-square-co/apis/gen/pkg/fairnsquare/service/user/v1alpha1"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -34,7 +35,7 @@ func (u *UserServer) CreateUser(ctx context.Context, req *pb.CreateUserRequest) 
 }
 
 func (u *UserServer) GetUser(ctx context.Context, req *pb.GetUserRequest) (*pb.GetUserResponse, error) {
-	if req.Username == "" {
+	if strings.TrimSpace(req.Username) == "" {
 		return nil, status.Error(codes.InvalidArgument, "Username cannot be empty")
 	}
 
@@ -48,7 +49,6 @@ func (u *UserServer) GetUser(ctx context.Context, req *pb.GetUserRequest) (*pb.G
 }
 
 func NewUserServer(controller UserController) (*UserServer, error) {
-
 	return &UserServer{
 		controller: controller,
 	}, nil
